@@ -1,3 +1,50 @@
-download git for windows from
+*download git for windows from
 https://git-scm.com/download/win
+
+*click on the exe file, follow setup instructions
+*Choose a default editor (I chose Notepad, the basic text editor for 
+windows)
+*Just click the other ones that are recommeneded idk what it all means
+
+*open command prompt
+*navigate to project directory (folder) by typing your equavalent of:
+>cd Desktop (pressing tab after styping Des_ will predict what you want)(enter)
+>cd Stats (enter)
+>cd Project (enter)
+or
+>cd Desktop/Stats/Project (enter)
+
+*clone git repository
+>git clone https://github.com/vhyben/Stats-Honours-Project.git (enter)
+
+Now you have a local version of the repository on your computer.
+
+*run these lines on command prompt with your deets
+>git config --global user.email "vhyben001@myuct.ac.za"
+>git config --global user.name Ben
+
+*To commit something to the project repository:
+>git add "filename.Rmd"   (this "tracks" the file, prepares to commit. file must be inside git repo folder)
+>git status               (optional, to check what files are added)
+>git commit -m "explanation of upload"     (commits all files that were "tracked" to main branch)
+This has commited the files to your local repository. 
+
+*To upload to the remote (online) gitHub repo, run
+>git push origin main
+(at this point I had to do some authentication stuff on the first commit)
+
+*to pull from remote repo (do this before you start editing, keeps all up to date)
+>git pull origin main
+
+*making new branch called branch_name (so as not to mess with the main branch incase one cocks something up)
+>git checkout -b "branch_name"
+Now you are in this branch, and not in main any more. can now add files and things using add and commit 
+(make sure not on main branch when committing)(check using >git status)
+
+*pushing branch to remote repo
+>git push origin branch_name
+
+## youtube vid: https://www.youtube.com/watch?v=MnUd31TvBoU
+
+
 
