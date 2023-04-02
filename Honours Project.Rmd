@@ -12,3 +12,41 @@ header-includes: \usepackage{pdfpages} \usepackage{amsmath}
 knitr::opts_chunk$set(echo = T)
 ```
 
+# Brief and background (Colin meeting notes)
+
+This project deals with estimating the (instant) mortality rate of 10 different Southern African fish species based on the length distribution.
+
+Species include: Galjoen, Blacktail, Dusky Cob, Elf, Zebra, White Steenbras, Spotted Gully shark, Belman, Guitarfish, White Stumpnose.
+
+The mortality rate of fish is defined as ...
+
+The mortality rate (M) can be derived from the age distribution of a species. The age distribution quantifies how many fish are alive in each age bracket. The age of a fish can be determined by catching and dissecting the fish and examining biological age indicators. This is not a sustainable and ethical \*better words* way of estimating mortality rates, especially for rare and vulnerable species.
+
+Fish length and age are linked, but naturally do not correspond exactly; there is variation. For example, two 3-year-old fish of a species will probably have different lengths, and two 30cm fish could be different ages based on how fast they grow.
+
+We are given length-frequency data from the De Hoop MPA, and aim to use this to estimate the natural mortality rate. As we have seen, this length distribution cannot be used directly to measure M, but needs to be used to estimate the age distribution first, from which we can then estimate M. This length-age relationship has been historically measured and represented with age-length keys for each species. Via von Bertalanffy models, this relationship has been modelled.
+
+
+## Von Bertalanffy models
+
+**not researched, just from meeting
+For each fish age, there is a normal distribution of lengths.
+As age increases, the variance of the length estimate increases too due to more natural variation as well as there being less data at those ages.
+
+
+## Possible methods (Res meeting notes)
+
+-bootstrapping: repeatedly predict the age from the length data & fit the age-length curve multiple times, each time getting M. Will get confidence intervals from the bootstrapping
+
+-hierarchichal bayes: original length-age & new data, can account for uncertainty (??)
+
+-use raw data from age-length key if available: to fit model ourselves
+
+## Proposal Guidlines (from Res)
+
+-Describe problem, approach , data, possible methods.
+-Timeline (plan) with milestones
+-include info on fish species &how data was collected
+ -time frame, changes, anything else we might want to take into account
+
+

@@ -35,7 +35,7 @@ This has commited the files to your local repository.
 
 *to pull from remote repo (do this before you start editing, keeps all up to date)
 >git pull origin main
-
+>git pull ?
 *making new branch called branch_name (so as not to mess with the main branch incase one cocks something up)
 >git checkout -b "branch_name"
 Now you are in this branch, and not in main any more. can now add files and things using add and commit 
@@ -43,6 +43,9 @@ Now you are in this branch, and not in main any more. can now add files and thin
 
 *pushing branch to remote repo
 >git push origin branch_name
+
+*switching to main 
+>git checkout main
 
 ## youtube vid: https://www.youtube.com/watch?v=MnUd31TvBoU
 
