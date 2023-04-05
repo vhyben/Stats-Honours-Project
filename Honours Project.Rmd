@@ -50,3 +50,21 @@ As age increases, the variance of the length estimate increases too due to more 
  -time frame, changes, anything else we might want to take into account
 
 
+
+```{r Q1,warning=FALSE,message=FALSE, include = TRUE, echo = FALSE}
+rm(list = ls())
+setwd("C:/Users/benva/Desktop/HON STATS/PROJECT/Stats-Honours-Project")
+
+library("readxl")
+
+dat = read_xlsx("data/qryLengthofDeHoopFishSpecies.xlsx", sheet = 2, col_names = c("Year","Location","SpeciesName","Length"),range = cell_limits(c(1, 1), c(NA, 4)))
+dat[dat$SpeciesName == "Lithognathus lithognathus",] #white steenbras
+#D100987
+
+
+```
+
+# notes
+
+-having issues reading in massive excell file - fixed by googling - apparantly a bug in "cellranger", workaround found.
+-white see bream Diplodus sargus has lots of data, maybe do that one?
