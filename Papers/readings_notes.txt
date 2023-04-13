@@ -3,4 +3,11 @@ READING NOTES/LINKS
 *von bertalanffy stuff
 http://www.pisces-conservation.com/growthhelp/index.html?von_bertalanffy.htm
 
-*levenberg-marquardt method
+*levenberg-marquardt method to solve VBL DE
+
+*Lai et al 1996
+age determination in fisheries
+(methods that kill fish)
+https://books.google.co.za/books?hl=en&lr=&id=Nf7tbYcNrGoC&oi=fnd&pg=PA82&dq=obtaining+the+age+distribution+in+fisheries&ots=DL3zgP6Hzx&sig=X-JwdjA2-nhv65CJx6BV0aEulEE&redir_esc=y#v=onepage&q=obtaining%20the%20age%20distribution%20in%20fisheries&f=false
+
+*Gotz

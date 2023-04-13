@@ -51,5 +51,4 @@ Now you are in this branch, and not in main any more. can now add files and thin
 
 ## youtube vid: https://www.youtube.com/watch?v=MnUd31TvBoU
 
-
-C:\Users\benva\Desktop\HON STATS\PROJECT\Stats-Honours-Project
+cd C:\Users\benva\Desktop\HON STATS\PROJECT\Stats-Honours-Project
