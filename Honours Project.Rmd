@@ -54,53 +54,7 @@ normal distribution of lengths. As age increases, the variance of the
 length estimate increases too due to more natural variation as well as
 there being less data at those ages.
 
-## Possible methods (Res meeting notes)
-
--bootstrapping: repeatedly predict the age from the length data & fit
-the age-length curve multiple times, each time getting M. Will get
-confidence intervals from the bootstrapping
-
--hierarchichal bayes: original length-age & new data, can account for
-uncertainty (??)
-
--use raw data from age-length key if available: to fit model ourselves
-
-## Proposal Guidlines (from Res)
-
--Describe problem, approach , data, possible methods. -Timeline (plan)
-with milestones -include info on fish species &how data was collected
--time frame, changes, anything else we might want to take into account
--detailing research topic itself and the analysis to be conducted, division of labour, and a time-line
-scheduling goals/tasks/deliverables to be completed, 
-
-
-# Proposal
-
-## Outline
-
-The natural mortality rate, M, for a species of fish is the instantaneous rate of death due to all factors except fishing, such as predation, disease and starvation. (reference). 
-A value for M can be derived from the age distribution of a species, which quantifies how many fish are alive in each age bracket. This age distribution can only be directly determined by aging a large number of fish by examining biological age indicators, a cost and resource-intensive process which requires the dissection and thus death of the animal. (reference)
-
-Especially for rare or vulnerable fish species, this is not feasible; a method that doesn't involve directly aging the fish to estimate M is required. One way of estimating M is via the *length* distribution of a species. This project thus deals with estimating the (instant) mortality rate M of 10 different Southern African fish species based on their length distributions.
-
-## Approach
-
-The age of a fish is correlated to it's length, but naturally do not correspond exactly; there is variation in the population based on how fast they grow. For example, two 3-year-old fish of a species will likely have different lengths, and two 30cm fish could be different ages. 
-
-
-
-
-
-
-
-```{r Q1,warning=FALSE,message=FALSE, include = TRUE, echo = FALSE}
-rm(list = ls())
-setwd("C:/Users/benva/Desktop/HON STATS/PROJECT/Stats-Honours-Project")
-
-library("readxl")
-
-dat = read_xlsx("qryLengthofDeHoopFishSpecies.xlsx", sheet = 2, col_names = c("Year","Location","SpeciesName","Length"),range = cell_limits(c(2, 1), c(NA, 4)))
-
+```{r blacktail EDA}
 blacktail = dat[dat$SpeciesName == "Diplodus sargus",] 
 blacktail
 
@@ -126,6 +80,102 @@ plot(VBL_age(lengths, L_inf,k,t_0)~lengths, type = "l", col = "red")+grid()
 
 
 ```
+
+## Possible methods (Res meeting notes)
+
+-bootstrapping: repeatedly predict the age from the length data & fit
+the age-length curve multiple times, each time getting M. Will get
+confidence intervals from the bootstrapping
+
+-hierarchichal bayes: original length-age & new data, can account for
+uncertainty (??)
+
+-use raw data from age-length key if available: to fit model ourselves
+
+## Proposal Guidlines
+
+detailing research topic itself and the analysis to be conducted, division of labour, and a time-line scheduling goals/tasks/deliverables to be completed 
+
+- Describe problem, approach , 
+- describe data, summary stats
+  - include info on fish species &how data was collected
+- possible methods. 
+- Timeline (plan) with milestones, time frame, changes, anything else we might want to take into account
+- application of project
+
+
+
+
+
+
+# Proposal
+
+## Outline
+
+The natural mortality rate, M, for a species of fish is the instantaneous rate of death due to all factors except fishing, such as predation, disease and starvation (Mannini A et.el elephant in room). 
+A value for M can be derived from the age distribution of a species, which quantifies how many fish are alive in each age bracket. This age distribution can only be directly determined by aging a large number of fish by examining biological age indicators, a cost and resource-intensive process which requires the dissection and thus death of the animal. (reference)
+
+Especially for rare or vulnerable fish species, this is not feasible; a method that doesn't involve directly aging the fish to estimate M is required. We will explore methods of estimating M using the *length* distribution of a species. This project deals with estimating the (instant) mortality rate M with error of 10 different Southern African fish species based on their length distributions.
+
+## Data
+
+*something on how data was collected
+
+We are supplied with data on many different fish species from the De Hoop Marine Protected Area (MPA) from 1948 to 2021. This is represented in an excel spreadsheet with the following column names: Year, Location, SpeciesName, Length. This is a convenient representation as the data is already in long format, and allows us to readily extract the lengths for each species. The location variable is one of "Koppie Alleen" or "Lekkerwater", and is not of much importance; all data was collected in the same reserve (maybe put some EDA graphs here to show this. lengths of fish in each location). The Year, SpeciesName and Length are self-explanetory, giving the year the fish was caught and measured, scientific name and length in cm respectively.
+
+*selectivity in data making it look normal but actually exponential
+
+```{r data}
+rm(list = ls())
+setwd("C:/Users/benva/Desktop/HON STATS/PROJECT/Stats-Honours-Project")
+
+library("readxl")
+
+dat = read_xlsx("qryLengthofDeHoopFishSpecies.xlsx", sheet = 2, col_names = c("Year","Location","SpeciesName","Length"),range = cell_limits(c(2, 1), c(NA, 4)))
+
+colnames(dat)
+
+min(dat$Year)
+max(dat$Year)
+
+plot(as.factor(dat$Location))
+
+```
+
+```{r cob}
+
+cob = dat[dat$SpeciesName == "Argyrosomus japonicus",] 
+cob
+
+hist(cob$Length)
+
+```
+
+
+
+
+## Methods
+
+The age of a fish is correlated to it's length (the length between the tip of its head and the fork in its tail**), but naturally do not correspond exactly; there is variation in the population based on how fast they grow. For example, two 3-year-old fish of a species will likely have different lengths, and two 30cm fish could be different ages. Using the length distribution to estimate the age distribution is the first task and actually the crux of the problem. Once the age distribution has been estimated, it is just a case of fitting an exponential regression model to the data to estimate M (see the section on exponential regression).  
+
+### Von Bertalanffy Growth Model
+
+The Von Bertalanffy Growth Model is the most commonly used model to model fish length-at-age. It is given as
+$$
+L(a) = L_\infty (1-e^{-k(a-t_0)})
+$$
+where $L(a)$ is the length of the fish at age a, $L_\infty$ is the average maximum length or asymptotic size, $k$ is the growth coefficient, and $t_0$ is the theoretical length at age 0. 
+
+*parameters estimated using Levenberg-Marquardt Method for non-linear regression (http://www.pisces-conservation.com/growthhelp/index.html?von_bertalanffy.htm)
+
+*historical data from age-length keys used
+
+
+### Age-Length Keys from Historical Data
+
+### Exponential Regression
+
+
 
 # notes
 
