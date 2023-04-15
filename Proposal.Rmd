@@ -23,7 +23,7 @@ A value for M can be derived from the age distribution of a species, which quant
 
 Especially for rare or vulnerable fish species, this is not feasible; a method that doesn't involve directly aging the fish to estimate M is required. We will explore methods of estimating M using the *length* distribution of a species. This project deals with estimating the (instant) mortality rate M with error of 10 different Southern African fish species based on their length distributions.
 
-## Data
+# Data
 
 *something on how data was collected
 
@@ -60,7 +60,7 @@ hist(cob$Length)
 
 
 
-## Methods
+# Methods
 
 The age of a fish is correlated to it's length (the length between the tip of its head and the fork in its tail**), but naturally do not correspond exactly; there is variation in the population based on how fast they grow. For example, two 3-year-old fish of a species will likely have different lengths, and two 30cm fish could be different ages. Using the length distribution to estimate the age distribution is the first task and actually the crux of the problem. Once the age distribution has been estimated, it is just a case of fitting an exponential regression model to the data to estimate M (see the section on exponential regression).  
 
@@ -68,16 +68,29 @@ The age of a fish is correlated to it's length (the length between the tip of it
 
 The Von Bertalanffy Growth Model is the most commonly used model to model fish length-at-age. It is given as
 $$
-L(a) = L_\infty (1-e^{-k(a-t_0)})
+L(t) = L_\infty (1-e^{-k(t-t_0)})
 $$
-where $L(a)$ is the length of the fish at age a, $L_\infty$ is the average maximum length or asymptotic size, $k$ is the growth coefficient, and $t_0$ is the theoretical length at age 0. 
+where $L(t)$ is the length of the fish at age a, $L_\infty$ is the average maximum length or asymptotic size, $k$ is the growth coefficient, and $t_0$ is the theoretical length at age 0. 
 
 *parameters estimated using Levenberg-Marquardt Method for non-linear regression (http://www.pisces-conservation.com/growthhelp/index.html?von_bertalanffy.htm)
 
 *historical data from age-length keys used
 
+## Age-Length Keys (ALK)
 
-### Age-Length Keys from Historical Data
+Age Length Keys map a fish's age against its length bin. It is essentially a frequency table that records the number of age observations within a length bracket.
 
-### Exponential Regression
+The are three types of age length keys: 
+Forward keys which are used to establish probability of the fish's age given its length and which length bin where $Pr[age_i|length_j] = \frac{n_{ij}}{n_j}$. (FALK) 
+Inverse keys which give probability of length given age. (IALK)
+Combined keys (FIAL) which incorporates both into one using maximum likelihood.
+
+The main one relevant to this topic is the FALK.
+Forward ALKs have a stringent set of of requirements in order for them to serve as a valid form of prediction/inference. These requirements are a result of the assumption that ALKs are developed from one population of fish. The result of this is that an ALK from one year cannot be used to make inference on catches from a different year as it is assumed that population composition changes from year to year, these differences are mostly attributable to the year-on-year variation in recruitment. It is also assumed that an ALK from one area cannot be applied to another as there would be differences in population compositions between the two areas. 
+As a result if one tries to then fit a year/area specific ALK to data that spans multiple years or is from a different area the variance will be severely underestimated and there will be significant bias in any estimated proportions.
+
+The combined key provides a framework for fitting year and area specific keys to a mixed general sample of age-length data but requires further research into its potential applications to this project as it may not be possible to obtain the additional data needed for this method.
+
+
+## Exponential Regression
 
